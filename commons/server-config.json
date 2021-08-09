@@ -1,0 +1,12 @@
+{
+    "dev" : {
+        "endpoint": "http://192.168.0.13:4005",
+        "getKpi" : "http://192.168.0.13:4005/getKpi?productKey=ewr3284df8s2eef82gfdh4g8j483",
+        "getAsteroids": "http://192.168.0.13:4005/getAsteroid?productKey=ewr3284df8s2eef82gfdh4g8j483"
+    },
+    "prod" : {
+        "endpoint":  "https://astronomyhero.com",
+        "getKpi":  "https://astronomyhero.com/getKpi?productKey=ewr3284df8s2eef82gfdh4g8j483",
+        "getAsteroids": "http://astronomyhero.com/getAsteroid?productKey=ewr3284df8s2eef82gfdh4g8j483"
+    }
+}
