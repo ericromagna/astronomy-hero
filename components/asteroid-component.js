@@ -4,7 +4,6 @@ import StyleCommons from '../commons/style.json';
 
 export default function AsteroidComponent(props) {
     const [hideText, setHideText] = React.useState(true);
-    //console.log(`Asteroid Component Prop: ${JSON.stringify(props, null, 2)}`);
 
     //#region Asteroid properties
     const estDiameterMaxSI = props?.asteroid?.estimated_diameter?.meters?.estimated_diameter_max;
