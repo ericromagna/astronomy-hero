@@ -18,18 +18,11 @@ export default function HomeComponent({ navigation }) {
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     callKPIApi();
-
-    callAsteroidApi()
-    .then(setRefreshing(false))
-    .catch(err => {
-      setRefreshing(false);
-      console.log(`Refresh error: ${err}`)
-    });
-
+    callAsteroidApi();
+    wait(700).then(setRefreshing(false));
   }, []);
 
   React.useEffect(() => {
-    console.log("use effect");
     //Get the Kpi and then the asteroids
     //the handle will save the results in the redux store and in states
     
@@ -38,6 +31,12 @@ export default function HomeComponent({ navigation }) {
   },[]);
 
   const dispatch = useDispatch();
+
+  const wait = (timeout) => {
+    return new Promise(resolve => {
+      setTimeout(resolve, timeout);
+    });
+  }
 
   const getAuroraMessage = () => {
     if (kpi.length === 0) {
@@ -62,17 +61,9 @@ export default function HomeComponent({ navigation }) {
   * @return {}
   */
   const callAsteroidApi = () => {
-    return new Promise((resolve, reject) => {
-      GetAsteroids()
-      .then(result => {
-        handleAsteroids(result);
-        resolve();
-      })
-      .catch(err => {
-        console.error(err);
-        reject();
-      });
-    });
+    GetAsteroids()
+      .then(result => handleAsteroids(result))
+      .catch(err => console.error(err));
   }
 
   /**
@@ -90,8 +81,7 @@ export default function HomeComponent({ navigation }) {
   * @param  {kpi as string}
   */
   const handleKpi = (kpiAsString) => {
-    //TODO: unboxing and saving in the store and state
-    console.log(`${kpiAsString}`);
+    //console.log(`${kpiAsString}`);
     const newKpi = kpiAsString.split(' ');
     dispatch({ type: 'UPDATE_KPI', kpi: newKpi});
     setKpi(newKpi);
@@ -103,12 +93,18 @@ export default function HomeComponent({ navigation }) {
   */
   const handleAsteroids = (result) => {
     //console.log(`${JSON.stringify(result, null, 2)}`);
-    const today = '' + moment().format('YYYY-MM-DD');
+
+    //UTC -> Same AS Server
+    const today = '' + moment().utc(false).format('YYYY-MM-DD');
     const AsteroidsArray = result.near_earth_objects[today];
+
+    if (!AsteroidsArray) {
+      return;
+    }
+
     dispatch({ type: 'UPDATE_ASTEROIDS', asteroids: AsteroidsArray});
     setAsteroids(AsteroidsArray);
   }
-
   //#endregion
 
   return (

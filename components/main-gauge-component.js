@@ -3,8 +3,6 @@ import { StyleSheet, Text, View, Image, Button, TouchableOpacity, Dimensions  } 
 import StyleCommons from '../commons/style.json'
 
 export default function MainGaugeComponent(props) {
-    console.log(`Gauge Component Prop: ${JSON.stringify(props, null, 2)}`);
-
     const windowWidth = Dimensions.get('window').width;
     //const windowHeight = Dimensions.get('window').height;
     const adaptiveFontSize = windowWidth / 1.5;
