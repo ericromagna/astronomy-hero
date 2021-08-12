@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "Astronomy Hero",
-    "icon": "./assets/favicon.png",
-    "version": "1.0.1",
+    "icon": "./assets/super-dark-sky.png",
+    "version": "1.0.2",
     "slug": "astronomy-hero-ui",
     "ios": {
       "bundleIdentifier": "com.ericromagna.astronomyhero",

@@ -72,7 +72,10 @@ export default function HomeComponent({ navigation }) {
   */
   const callKPIApi = () => {
     GetKpi()
-    .then(result => { handleKpi(result) })
+    .then(result => {
+      handleKpi(result);
+      console.log(`print ${JSON.stringify(result)}`);
+     } )
     .catch(err => {console.error(err)});
   }
 
@@ -81,8 +84,17 @@ export default function HomeComponent({ navigation }) {
   * @param  {kpi as string}
   */
   const handleKpi = (kpiAsString) => {
-    //console.log(`${kpiAsString}`);
-    const newKpi = kpiAsString.split(' ');
+    let newKpi;
+    if (!kpiAsString) {
+      return;
+    }
+    else if (kpiAsString === 1) {
+      newKpi = [kpiAsString];
+    }
+    else {
+      newKpi = kpiAsString.split(' ');
+    }
+    
     dispatch({ type: 'UPDATE_KPI', kpi: newKpi});
     setKpi(newKpi);
   }

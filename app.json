@@ -4,9 +4,9 @@
     "slug": "astronomy-hero-ui",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/new-splash.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/new-splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,7 +21,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/new-splash.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.ericromagna.astronomyheroui"
