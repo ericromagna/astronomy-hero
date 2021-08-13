@@ -1,12 +1,12 @@
 {
   "expo": {
     "name": "Astronomy Hero",
-    "icon": "./assets/super-dark-sky.png",
+    "icon": "./assets/custom-icon.png",
     "version": "1.0.2",
     "slug": "astronomy-hero-ui",
     "ios": {
       "bundleIdentifier": "com.ericromagna.astronomyhero",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.1"
     },
     "android": {
       "package": "com.ericromagna.astronomyhero",

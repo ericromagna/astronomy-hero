@@ -6,15 +6,15 @@ export default function AsteroidComponent(props) {
     const [hideText, setHideText] = React.useState(true);
 
     //#region Asteroid properties
-    const estDiameterMaxSI = props?.asteroid?.estimated_diameter?.meters?.estimated_diameter_max;
-    const estDiameterMinSI = props?.asteroid?.estimated_diameter.meters?.estimated_diameter_min;
-    const estDiameterMaxUS = props?.asteroid?.estimated_diameter?.feet?.estimated_diameter_max; //feet
-    const estDiameterMinUS = props?.asteroid?.estimated_diameter.feet?.estimated_diameter_min; //feet
+    const estDiameterMaxSI = Number(props?.asteroid?.estimated_diameter?.meters?.estimated_diameter_max).toFixed(2);
+    const estDiameterMinSI = Number(props?.asteroid?.estimated_diameter.meters?.estimated_diameter_min).toFixed(2);
+    const estDiameterMaxUS = Number(props?.asteroid?.estimated_diameter?.feet?.estimated_diameter_max).toFixed(2); //feet
+    const estDiameterMinUS = Number(props?.asteroid?.estimated_diameter.feet?.estimated_diameter_min).toFixed(2); //feet
 
     const isPoteniallyHazardous = props?.asteroid?.is_potentially_hazardous_asteroid ? 'Yes' : 'No';
     const closeApproachData = `${props?.asteroid?.close_approach_data[0]?.close_approach_date}`;
 
-    const relVelocitySI = props?.asteroid.close_approach_data[0]?.relative_velocity?.kilometers_per_second;
+    const relVelocitySI =  Number(props?.asteroid.close_approach_data[0]?.relative_velocity?.kilometers_per_second).toFixed(2);;
 
     const relMissDistanceSI = Number(props?.asteroid?.close_approach_data[0]?.miss_distance?.kilometers).toFixed(2);
     const relMissDistanceUS = Number(props.asteroid?.close_approach_data[0]?.miss_distance?.miles).toFixed(2);
@@ -55,7 +55,7 @@ export default function AsteroidComponent(props) {
             flex: 1,
             justifyContent: justifyContent,
             marginLeft: adaptiveMarginLeft,
-            marginBottom: containerHeight * 0.1,
+            marginBottom: containerHeight * 0.2,
             width: containerWidth ,
             height: constainerSizeWithText
         },
