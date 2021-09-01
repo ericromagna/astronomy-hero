@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import HomeNavigator from './routes/home-stack';
-import Home from './screens/home'
-//import LoginNavigator from './routes/LoginStack';
+//import Home from './screens/home'
 
 export default function index() {
 
@@ -18,7 +17,7 @@ export default function index() {
     //     }
     // });
     //return ( isLogged ? <HomeNavigator /> : <LoginNavigator />); 
-    return(<Home />);
-    //return (<HomeNavigator/>); 
+    //return(<Home />);
+    return (<HomeNavigator/>); 
 }
 
