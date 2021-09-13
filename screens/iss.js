@@ -1,26 +1,25 @@
 import React from "react";
 import {
-  Image,
   ImageBackground,
   StyleSheet,
   Text,
   View,
   SafeAreaView,
-  TouchableOpacity,
   Dimensions,
   ScrollView,
 } from "react-native";
-import { useDispatch } from "react-redux";
-import moment from "moment";
 import { GetIss, GetLocation, GetLocationURL } from "../api-callers/get-iss";
 import StyleCommons from "../commons/style.json";
+import MapView, { Marker } from "react-native-maps";
 
 export default function ISSComponent(props) {
-  const [iss, setIss] = React.useState({});
-  const [local, setLocation] = React.useState({});
-  const [localImage, setImage] = React.useState(
-    "https://image.thum.io/get/png/width/1200/https://www.google.com/maps/@40.7856246,-73.9447593,14z"
-  );
+  const [mapRegion, setmapRegion] = React.useState({
+    latitude: 43.6426,
+    longitude: -79.3871,
+    latitudeDelta: 0.05,
+    longitudeDelta: 0.05,
+  });
+  const [location, setCountryLocation] = React.useState("");
 
   React.useEffect(() => {
     HandleAPIsCall();
@@ -32,10 +31,6 @@ export default function ISSComponent(props) {
       return null;
     });
 
-    setIss(issRes[0]);
-
-    console.log(`${issRes[0]?.latitude}.${issRes[0]?.longitude}`);
-
     const locationRes = await GetLocation(
       issRes[0]?.latitude,
       issRes[0]?.longitude
@@ -44,17 +39,23 @@ export default function ISSComponent(props) {
       return null;
     });
 
-    console.log(`locationRes = ${JSON.stringify(locationRes, null, 2)}`);
-    setLocation(locationRes);
+    if (issRes[0]?.latitude && issRes[0]?.longitude) {
+      UpdateCoordenates(issRes[0], locationRes.country_code);
+    }
 
-    const url = await GetLocationURL(locationRes?.map_url).catch((err) => {
-      console.error(`GetLocationURL error: ${err}`);
-      return null;
+    if (locationRes?.country_code) {
+      setCountryLocation(locationRes.country_code);
+    }
+  };
+
+  const UpdateCoordenates = (coordenates, countryCode) => {
+    const delta = countryCode ? 10 : 50;
+    setmapRegion({
+      latitude: coordenates.latitude,
+      longitude: coordenates.longitude,
+      latitudeDelta: delta,
+      longitudeDelta: delta,
     });
-
-    console.log(`${locationRes?.map_url}`);
-    console.log(`${url}`);
-    //setImage(url);
   };
 
   return (
@@ -69,14 +70,11 @@ export default function ISSComponent(props) {
             <Text style={styles.firstMessage}>
               Where is the International Space Station now?
             </Text>
-            <Text>{local.map_url}</Text>
+            {/* <Text style={styles.firstMessage}>{location}</Text> */}
             <View style={styles.issImageContainer}>
-              <Image
-                style={styles.issImage}
-                source={{
-                  uri: localImage,
-                }}
-              />
+              <MapView style={styles.map} region={mapRegion}>
+                <Marker coordinate={mapRegion} title="Marker" />
+              </MapView>
             </View>
           </View>
         </ImageBackground>
@@ -85,9 +83,7 @@ export default function ISSComponent(props) {
   );
 }
 
-const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-const normalTextFontSize = windowHeight * 0.03;
 const headerTextFontSize = windowHeight * 0.04;
 
 const styles = StyleSheet.create({
@@ -113,10 +109,6 @@ const styles = StyleSheet.create({
   issImageContainer: {
     alignItems: "center",
   },
-  issImage: {
-    width: windowWidth * 0.9,
-    height: windowWidth * 0.9,
-  },
   firstMessage: {
     color: StyleCommons.mainColor,
     marginTop: 0,
@@ -124,5 +116,10 @@ const styles = StyleSheet.create({
     fontSize: headerTextFontSize,
     textAlign: "center",
     margin: 10,
+  },
+  map: {
+    alignSelf: "stretch",
+    height: windowHeight * 0.65,
+    margin: "5%",
   },
 });

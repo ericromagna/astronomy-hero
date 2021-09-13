@@ -1,7 +1,6 @@
 import React from "react";
 import {
   RefreshControl,
-  ImageBackground,
   StyleSheet,
   Text,
   View,
@@ -9,13 +8,11 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
-  Button,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import GetKpi from "../api-callers/get-kpi";
 import GetAsteroids from "../api-callers/get-asteroids";
-import StyleCommons from "../commons/style.json";
 import Aurora from "./aurora";
 import Asteroids from "./asteroids";
 import ISS from "./iss";
@@ -92,7 +89,7 @@ export default function HomeComponent({ navigation }) {
     });
   };
   const getFooterColor = (selected) => {
-    return selected ? "blue" : "white";
+    return selected ? "#3c1361" : "#A1A1A1";
   };
   //#endregion
 
@@ -115,7 +112,6 @@ export default function HomeComponent({ navigation }) {
     GetKpi()
       .then((result) => {
         handleKpi(result);
-        console.log(`print ${JSON.stringify(result)}`);
       })
       .catch((err) => {
         console.error(err);
@@ -162,8 +158,6 @@ export default function HomeComponent({ navigation }) {
 
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
-  const normalTextFontSize = windowHeight * 0.03;
-  const headerTextFontSize = windowHeight * 0.04;
 
   const styles = StyleSheet.create({
     container: {
@@ -179,21 +173,28 @@ export default function HomeComponent({ navigation }) {
       backgroundColor: getFooterColor(footerSelected.asteroids),
       textAlign: "center",
       justifyContent: "center",
+      borderWidth: 0.5,
+      borderColor: "white",
     },
     footerISS: {
       height: windowHeight * 0.1,
       width: windowWidth * 0.3333,
       backgroundColor: getFooterColor(footerSelected.iss),
       justifyContent: "center",
+      borderWidth: 0.5,
+      borderColor: "white",
     },
     footerAurora: {
       height: windowHeight * 0.1,
       width: windowWidth * 0.3333,
       backgroundColor: getFooterColor(footerSelected.aurora),
       justifyContent: "center",
+      borderWidth: 0.5,
+      borderColor: "white",
     },
     footerText: {
       textAlign: "center",
+      color: "white",
     },
   });
 

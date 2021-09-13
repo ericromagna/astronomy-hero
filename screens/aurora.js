@@ -1,25 +1,19 @@
 import React from "react";
 import {
-  RefreshControl,
   ImageBackground,
   StyleSheet,
   Text,
   View,
   SafeAreaView,
-  TouchableOpacity,
   Dimensions,
   ScrollView,
   Button,
 } from "react-native";
-import { useDispatch } from "react-redux";
 import moment from "moment";
 import StyleCommons from "../commons/style.json";
 import Gauge from "../components/main-gauge-component";
 
 export default function AuroraComponent(props) {
-  const [kpi, setKpi] = React.useState([]);
-  const [asteroids, setAsteroids] = React.useState([]);
-
   React.useEffect(() => {
     //Get the Kpi and then the asteroids
     //the handle will save the results in the redux store and in states
@@ -49,9 +43,8 @@ export default function AuroraComponent(props) {
           style={styles.image}
         >
           <View style={styles.header}>
-            <Text style={styles.firstMessage}>
-              KPI Index at {moment().toLocaleString()}
-            </Text>
+            <Text style={styles.firstMessage}>KPI Index at</Text>
+            <Text style={styles.firstMessage}>{moment().toLocaleString()}</Text>
             <Gauge style={styles.gauge} kpi={props.kpi} />
             <Text style={styles.firstMessage}>{getAuroraMessage()}</Text>
           </View>
