@@ -28,3 +28,17 @@ export function GetLocation(latitute, longitude) {
       });
   });
 }
+
+export function GetLocationURL(url) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${serveCommons.prod.getScreenshot}/${url}`)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.error(`CallIssApi error: ${err}`);
+        reject(false);
+      });
+  });
+}

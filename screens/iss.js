@@ -12,12 +12,15 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import moment from "moment";
-import { GetIss, GetLocation } from "../api-callers/get-iss";
+import { GetIss, GetLocation, GetLocationURL } from "../api-callers/get-iss";
 import StyleCommons from "../commons/style.json";
 
 export default function ISSComponent(props) {
   const [iss, setIss] = React.useState({});
   const [local, setLocation] = React.useState({});
+  const [localImage, setImage] = React.useState(
+    "https://image.thum.io/get/png/width/1200/https://www.google.com/maps/@40.7856246,-73.9447593,14z"
+  );
 
   React.useEffect(() => {
     HandleAPIsCall();
@@ -29,13 +32,7 @@ export default function ISSComponent(props) {
       return null;
     });
 
-    if (!issRes) {
-      console.error("ISS: not possible to get ISS position");
-      return null;
-    }
-
     setIss(issRes[0]);
-    console.log(`R4=> ${JSON.stringify(issRes[0], null, 2)}`);
 
     console.log(`${issRes[0]?.latitude}.${issRes[0]?.longitude}`);
 
@@ -47,8 +44,17 @@ export default function ISSComponent(props) {
       return null;
     });
 
-    console.log(`${JSON.stringify(locationRes, null, 2)}`);
+    console.log(`locationRes = ${JSON.stringify(locationRes, null, 2)}`);
     setLocation(locationRes);
+
+    const url = await GetLocationURL(locationRes?.map_url).catch((err) => {
+      console.error(`GetLocationURL error: ${err}`);
+      return null;
+    });
+
+    console.log(`${locationRes?.map_url}`);
+    console.log(`${url}`);
+    //setImage(url);
   };
 
   return (
@@ -68,7 +74,7 @@ export default function ISSComponent(props) {
               <Image
                 style={styles.issImage}
                 source={{
-                  uri: "https://reactnative.dev/img/tiny_logo.png",
+                  uri: localImage,
                 }}
               />
             </View>
