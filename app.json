@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -24,7 +22,12 @@
         "foregroundImage": "./assets/custom-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.ericromagna.astronomyheroui"
+      "package": "com.ericromagna.astronomyheroui",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyD1LngOdSsEurA83QejNQlt0EeNBPbxG9U"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/custom-icon.png"
