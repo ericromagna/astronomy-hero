@@ -9,7 +9,6 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import { useDispatch } from "react-redux";
 import moment from "moment";
 import GetKpi from "../api-callers/get-kpi";
 import GetAsteroids from "../api-callers/get-asteroids";
@@ -42,8 +41,6 @@ export default function HomeComponent({ navigation }) {
     callAsteroidApi();
     callKPIApi();
   }, []);
-
-  const dispatch = useDispatch();
 
   const wait = (timeout) => {
     return new Promise((resolve) => {
@@ -132,7 +129,6 @@ export default function HomeComponent({ navigation }) {
       newKpi = kpiAsString.split(" ");
     }
 
-    dispatch({ type: "UPDATE_KPI", kpi: newKpi });
     setKpi(newKpi);
   };
 
@@ -151,7 +147,6 @@ export default function HomeComponent({ navigation }) {
       return;
     }
 
-    dispatch({ type: "UPDATE_ASTEROIDS", asteroids: AsteroidsArray });
     setAsteroids(AsteroidsArray);
   };
   //#endregion
