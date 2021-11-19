@@ -1,5 +1,5 @@
 # astronomy-hero
-astronomy ui
+Cross Platform Astronomy APP - React Native
 
 Start with:
 
